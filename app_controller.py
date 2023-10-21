@@ -6,9 +6,12 @@ import tempfile
 import typing
 import time
 from datetime import datetime
-#import magic
+import magic
 import pytesseract
+<<<<<<< Updated upstream
 #import cv2
+=======
+>>>>>>> Stashed changes
 import PIL
 from flask import render_template, redirect, request, app, flash, send_file
 from io import BytesIO
@@ -88,9 +91,8 @@ class appController():
             else:
                 return json.dumps(output)
 
-    def uploader(self):
-        if request.method == 'POST':
-            file = request.files['file']
+    def uploader(self, file):
+
             filename = secure_filename(file.filename)
 
             filepath = os.path.join(tempfile.gettempdir(), filename)
@@ -133,6 +135,7 @@ class appController():
                     continue
                  # Reinitialize the text variable
                  text = ""
+<<<<<<< Updated upstream
 
     def pdf_recognition(self,pdf: PyPDF2.PdfFileReader):
         text = extract_text(pdf)
@@ -153,6 +156,12 @@ class appController():
                 text = pytesseract.image_to_string(PIL.Image.open(f), config=myconfig)
             print(text)
             return render_template("new-project.html", text=text)
+=======
+    def image_recognition(self,image: Image):
+        myconfig = r"--psm 6 --oem 3"
+        text = pytesseract.image_to_string(PIL.Image.open(image), config=myconfig)
+        print(text)
+>>>>>>> Stashed changes
 
     def is_pdf(self, file):
         """Returns True if the file is a PDF file, False otherwise."""
@@ -163,24 +172,24 @@ class appController():
          mime_type = magic.from_file(file, mime=True)
          return mime_type
 
-    def detect_file_type(self, file):
-        """Returns "pdf" if the file at the given path is a PDF file, "image" if it is an image file, or "other" otherwise."""
-        if self.is_pdf(self,file)=='application/pdf':
-            self.pdf_recognition(self,file)
-        elif self.is_image(self,file)=='image/jpeg':
-            self.image_recognition(self,file)
-        if self.is_pdf(file)=='application.pdf':
-            self.pdf_recognition(file)
-        elif self.is_image(file)=='image/jpeg':
-            self.image_recognition(file)
-        else:
-            return "other"
+    def detect_file_type(self):
+        if request.method == 'POST':
+            file = request.files['file']
+            file.save()
+        #Returns "pdf" if the file at the given path is a PDF file, "image" if it is an image file, or "other" otherwise."""
+            if self.is_pdf(file.filename)=='application/pdf':
+                print("hi")
+                self.uploader(file)
+            elif self.is_image(file.filename)=='image/jpeg':
+                self.image_recognition(file)
+            else:
+                return "other"
 
     def performance_analysis(self, code):
         print()
-
-    def hand_recognition(self):
-        #code
+    def image_extraction(self):
         print()
+
+
 
 
