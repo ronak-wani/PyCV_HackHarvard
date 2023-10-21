@@ -1,5 +1,8 @@
+import base64
+import io
 import json
 import re, PyPDF2
+import tempfile
 import typing
 import time
 from datetime import datetime
@@ -8,6 +11,11 @@ import pytesseract
 import cv2
 import PIL
 from flask import render_template, redirect, request, app, flash, send_file
+from io import BytesIO
+
+from werkzeug.utils import secure_filename
+from tempfile import gettempdir
+
 from app_model import appModel
 from pdfminer.high_level import extract_pages, extract_text
 from PIL.Image import Image
@@ -83,8 +91,19 @@ class appController():
     def uploader(self):
         if request.method == 'POST':
             file = request.files['file']
-            print(file.stream.read())
-            return render_template("new_project.html", filedt = file.stream.read())
+            filename = secure_filename(file.filename)
+
+            filepath = os.path.join(tempfile.gettempdir(), filename)
+
+            file.save(filepath)
+            with open(filepath, "rb") as f:
+                reader = PyPDF2.PdfReader(f)
+
+                page = reader.pages[0]
+
+                text = page.extract_text()
+            
+            return render_template("new-project.html", text=text)
 
     def text_to_speech(self):
          if request.method == "GET":
