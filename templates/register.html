@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <title>PyViz</title>
+</head>
+
+<body>
+    <h1 style="text-align: center; color: #fff;">PyViz</h1>
+
+    <div>
+        <footer class="footer"><b>Copyright &#169; Visual Panaroma</b></footer>
+    </div>
+
+    <div id="popup-box" class="modal">
+        <div class="content">
+            <form action="/register" method="post">
+            <h1>Please Register</h1>
+            <label><b>Full Name</b></label>
+            <input autocomplete="off" placeholder="Enter your full name" type="text" name="fname" required>
+            <label><b>Username</b></label>
+            <input autocomplete="off" placeholder="Enter your username" type="text" name="usname" required>
+            <label><b>Email-ID</b></label>
+            <input autocomplete="off" placeholder="Enter your email-id" type="email" name="usemail" required>
+            <label><b>Phone Number</b></label>
+            <input autocomplete="off" type="text" placeholder="Enter your phone number" name="usphnum" required>
+            <label><b>Password</b></label>
+            <input autocomplete="off" type="text" placeholder="Create password" name="uspwd" required>
+            <div>
+                <button class="login-btn" type="submit" name="usreg" value="usreg">REGISTER</button>
+                <button class="login-btn" type="reset">RESET</button>
+            </div>
+            </form>
+            <a href="#" class="box-close"><span class="material-symbols-outlined">close</span></a>
+        </div>
+    </div>
+
+</body>
+
+</html>

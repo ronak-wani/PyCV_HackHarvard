@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="top-nav">
+    <div class="top-tools-group">
+        <button type="button" class="top-tools">File</button>
+        <button type="button" class="top-tools top-tools-all">Edit</button>
+        <button type="button" class="top-tools top-tools-all">View</button>
+        <button type="button" class="top-tools top-tools-all">Navigate</button>
+        <button type="button" class="top-tools top-tools-all">Code</button>
+        <button type="button" class="top-tools top-tools-all">Refactor</button>
+        <button type="button" class="top-tools top-tools-all">Run</button>
+        <button type="button" class="top-tools top-tools-all">Tools</button>
+        <button type="button" class="top-tools top-tools-all">Window</button>
+        <button type="button" class="top-tools top-tools-all">Help</button>
+        <div>
+            <button type="button" class="icon" name="" value=""><span class="material-symbols-outlined ">waving_hand</span></button>
+            <button type="button" class="icon" name="" value=""><span class="material-symbols-outlined ">upload</span></button>
+            <button type="button" class="icon hear" name="" value=""><span class="material-symbols-outlined">text_to_speech</span></button>
+            <button type="submit" class="icon" name="" value=""><span class="material-symbols-outlined ">skip_next</span></button>
+            <button type="button" class="icon run" name="" value=""><span class="material-symbols-outlined ">play_arrow</span></button>
+            <button type="submit" class="icon" name="" value=""><span class="material-symbols-outlined ">skip_previous</span></button>
+            <button type="button" class="icon speak" name="" value=""><span class="material-symbols-outlined ">mic</span></button>
+        </div>
+    </div>
+
+    <div class="container-in-code">
+        <div class="left">
+            <div class="editor" id="editor">
+                <!-- <textarea class="code-space editor" id="codeval showcode editor" autocomplete="off" name="code" spellcheck="true" placeholder="Enter Your Code"></textarea> -->
+                {{ filedt }}
+            </div>
+
+            <label id="show-es-label" class="label-code" style="display:none">Error Simplified<span class="material-symbols-outlined rem-es" id="hide-es" style="color: #fff; cursor: pointer;">minimize</span></label>
+            <textarea id="show-es" style="display:none" class="code-space" autocomplete="off" name=""  spellcheck="true" placeholder="Error Simplified"></textarea>
+            <label id="show-pa-label" class="label-code" style="display:none">Performance Analysis<span class="material-symbols-outlined rem-pa" id="hide-pa" style="color: #fff; cursor: pointer;">minimize</span></label>
+            <textarea id="show-pa" style="display:none" class="code-space" autocomplete="off" name=""  spellcheck="true" placeholder="Performance Analysis"></textarea>
+            <label id="show-suggest-label" class="label-code" style="display:none">Suggestions<span class="material-symbols-outlined rem-suggest" id="hide-suggest" style="color: #fff; cursor: pointer;">minimize</span></label>
+            <textarea id="show-suggest" style="display:none" class="code-space" autocomplete="off" name=""  spellcheck="true" placeholder="Suggestions"></textarea>
+            <label id="show-term-label" class="label-code" style="display:none">Terminal<span class="material-symbols-outlined rem-term" id="hide-term" style="color: #fff; cursor: pointer;">minimize</span></label>
+            <textarea id="show-term" style="display:none" class="code-space" autocomplete="off" name=""  spellcheck="true" placeholder="Terminal"></textarea>
+            <label id="show-pp-label" class="label-code" style="display:none">Python Packages<span class="material-symbols-outlined rem-pp" id="hide-pp" style="color: #fff; cursor: pointer;">minimize</span></label>
+            <textarea id="show-pp" style="display:none" class="code-space" autocomplete="off" name=""  spellcheck="true" placeholder="Python Packages"></textarea>
+            <label id="show-pc-label" class="label-code" style="display:none">Python Console<span class="material-symbols-outlined rem-pc" id="hide-pc" style="color: #fff; cursor: pointer;">minimize</span></label>
+            <textarea id="show-pc" style="display:none" class="code-space" autocomplete="off" name=""  spellcheck="true" placeholder="Python Console"></textarea>
+        </div>
+        <div class="right">
+            <label id="show-vizout-label" class="label-code" style="display:none"><span class="material-symbols-outlined">key_visualizer</span>Visualize</label>
+            <label id="show-vizout-min" class="label-code close-vizout" style="display:none"><span class="material-symbols-outlined" style="color: #fff; cursor: pointer;">minimize</span></label>
+            <iframe id="show-vizout" class="vizout" style="display:none"></iframe>
+        </div>
+    </div>
+</div>
+
+<div class="side-nav">
+    <button type="button" class="side-tools click-vizout">Visualize</button>
+</div>
+
+<div class="bottom-opt">
+    <div class="bottom-tools-group">
+        <button type="button" class="bottom-tools">Run</button>
+        <button type="button" class="bottom-tools bottom-tools-all click-pp">Python Packages</button>
+        <button type="button" class="bottom-tools bottom-tools-all click-es">Error Simplified</button>
+        <button type="button" class="bottom-tools bottom-tools-all click-pc">Python Console</button>
+        <button type="button" class="bottom-tools bottom-tools-all click-suggest">Suggestions</button>
+        <button type="button" class="bottom-tools bottom-tools-all click-term">Terminal</button>
+        <button type="button" class="bottom-tools bottom-tools-all click-pa">Performance Analysis</button>
+        <select id="languages" class="languages" onchange="changeLanguage()">
+            <option disabled selected value="">Choose Interpreter</option>
+            <option value="python">Python</option>
+        </select>
+        <form class="upload" action = "/uploader" method = "POST" enctype = "multipart/form-data">
+            <input class="" type = "file" name = "file">
+            <input class="" type = "submit">
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}

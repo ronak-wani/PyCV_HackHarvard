@@ -1,0 +1,155 @@
+import json
+import re, PyPDF2
+import typing
+import time
+from datetime import datetime
+#import magic
+import pytesseract
+import cv2
+import PIL
+from flask import render_template, redirect, request, app, flash, send_file
+from app_model import appModel
+from pdfminer.high_level import extract_pages, extract_text
+from PIL.Image import Image
+import smtplib
+import os, pyttsx3, speech_recognition
+import subprocess
+
+class appController():
+    def __init__(self, app):
+        pass
+
+    def register(self):
+        if request.method == "POST":
+            if request.form.get("usreg"):
+                name = request.form.get("fname")
+                usname = request.form.get("usname")
+                usemail = request.form.get("usemail")
+                usnum = request.form.get("usphnum")
+                uspwd = request.form.get("uspwd")
+
+                am = appModel(app)
+                am.addUser(name, usname, usemail, usnum, uspwd)
+
+                #self.send_email(usemail, name, usname)
+
+                return redirect("/")
+
+    def send_email(self, usemail, name, usname):
+        EMAIL_ADDRESS = os.environ.get('MAIL_DEFAULT_SENDER')
+        EMAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+
+        with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+            smtp.ehlo()
+            smtp.starttls()
+            smtp.ehlo()
+
+            smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+
+            subject = 'Registeration Success'
+            body = f"""Dear Customer \n {name}, Thanks For Registering with Hemankit. 
+                Please use the following Username to log-in to the application:{usname} \n 
+                Thank you for using our application. \n 
+                For any further queries please contact +1000000000"""
+
+            msg = f'Subject: {subject}\n\n {body}'
+
+            smtp.sendmail(EMAIL_ADDRESS, usemail, msg)
+
+    def showNewProject(self):
+        return render_template("new-project.html")
+
+    def userCode(self):
+        if request.method == "GET":
+            code = request.args.get("code")
+            result = self.performance_analysis(code)
+            language = request.args.get("language")
+            print(code, language)
+            command = []
+            if language == "python":
+                command = ["python3", "-m", "temp.py"]
+            with open("temp.py", "w") as f:
+                f.write(code)
+            print(command)
+            process = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            output = process.stdout.decode("utf-8")
+            error = process.stderr.decode("utf-8")
+            print(output, error)
+            if not output:
+                return json.dumps(error)
+            else:
+                return json.dumps(output)
+
+    def uploader(self):
+        if request.method == 'POST':
+            file = request.files['file']
+            print(file.stream.read())
+            return render_template("new_project.html", filedt = file.stream.read())
+
+    def text_to_speech(self):
+         if request.method == "GET":
+             test = request.args.get("tts")
+             print(test)
+             text_speech = pyttsx3.init()
+             text_speech.say(f"{test}")
+             text_speech.runAndWait()
+             return None
+
+    def speech_recognition(self):
+         if request.method == "GET":
+             recognizer = speech_recognition.Recognizer()
+             while True:
+                 try:
+                     with speech_recognition.Microphone() as mic:
+                         recognizer.adjust_for_ambient_noise(mic, duration=0.5)
+                         audio = recognizer.listen(mic)
+                         text = recognizer.recognize_google(audio)
+                         text = text.lower()
+                         print(f"Recognized {text}")
+                         return json.dumps(text)
+                 except speech_recognition.UnknownValueError:
+                    # Reset the recognizer
+                    recognizer = speech_recognition.Recognizer()
+                    # Continue listening
+                    continue
+                 # Reinitialize the text variable
+                 text = ""
+
+    def pdf_recognition(self,pdf: PyPDF2.PdfFileReader):
+        text = extract_text(pdf)
+        print(text)
+    def image_recognition(self,image: Image):
+        myconfig = r"--psm 6 --oem 3"
+        text = pytesseract.image_to_string(PIL.Image.open(image), config=myconfig)
+        print(text)
+
+    def is_pdf(self, file):
+        """Returns True if the file is a PDF file, False otherwise."""
+        mime_type = magic.from_file(file, mime=True)
+        return mime_type
+    def is_image(self,file):
+         """Returns True if the file is an image file, False otherwise."""
+         mime_type = magic.from_file(file, mime=True)
+         return mime_type
+
+    def detect_file_type(self, file):
+        """Returns "pdf" if the file at the given path is a PDF file, "image" if it is an image file, or "other" otherwise."""
+        if self.is_pdf(self,file)=='application/pdf':
+            self.pdf_recognition(self,file)
+        elif self.is_image(self,file)=='image/jpeg':
+            self.image_recognition(self,file)
+        if self.is_pdf(file)=='application.pdf':
+            self.pdf_recognition(file)
+        elif self.is_image(file)=='image/jpeg':
+            self.image_recognition(file)
+        else:
+            return "other"
+
+    def performance_analysis(self, code):
+        print()
+
+    def hand_recognition(self):
+        #code
+        print()
+
+

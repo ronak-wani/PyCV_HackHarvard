@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="heading-index">
+    <h1 style="color: #fff;">Welcome</h1>
+    <a href="/new-project" class="new-project">Create New Project</a>
+    <div id="open-file">
+        <form action = "/uploader" method = "POST" enctype = "multipart/form-data">
+            <input class="buttons-bottom" type = "file" name = "file">
+        </form>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
