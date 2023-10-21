@@ -1,15 +1,15 @@
-#!/usr/bin/env python
-# coding: utf-8
 
-# In[ ]:
-
-
-get_ipython().system('pip install mediapipe')
 import os
 import pickle
 import mediapipe as mp
 import cv2
 import matplotlib.pyplot as plt
+import pickle
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+import numpy as np
 
 
 mp_hands = mp.solutions.hands
@@ -59,12 +59,7 @@ f.close()
 # In[ ]:
 
 
-import pickle
 
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-import numpy as np
 
 
 data_dict = pickle.load(open('./data.pickle', 'rb'))
@@ -92,11 +87,7 @@ f.close()
 # In[ ]:
 
 
-import pickle
 
-import cv2
-import mediapipe as mp
-import numpy as np
 
 model_dict = pickle.load(open('./model.p', 'rb'))
 model = model_dict['model']

@@ -139,3 +139,15 @@ function changeLanguage(){
     let language = $("#languages").val();
     if (language == 'python')editor.session.setMode("ace/mode/python");
 }
+
+function changeUploader(){
+    let upload = $("#uploaders").val();
+    if (upload == 'pdf'){
+        document.getElementById('show-uppdf').style.display = 'block';
+        $('#show-upimg').hide();
+    }
+    if (upload == 'image'){
+        document.getElementById('show-upimg').style.display = 'block';
+        $('#show-uppdf').hide();
+    }
+}

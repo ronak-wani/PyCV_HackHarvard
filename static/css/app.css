@@ -316,6 +316,7 @@ label i{
 
 .top-tools-group{
     display: inline-flex;
+    padding: 0 0 0 350px;
 }
 
 .top-tools-all{
@@ -385,7 +386,7 @@ label i{
 }
 
 .upload{
-    display: inline-flex;
+    display: inline;
     cursor: pointer;
 }
 

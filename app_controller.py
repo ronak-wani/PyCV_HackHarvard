@@ -8,7 +8,7 @@ import time
 from datetime import datetime
 #import magic
 import pytesseract
-import cv2
+#import cv2
 import PIL
 from flask import render_template, redirect, request, app, flash, send_file
 from io import BytesIO
@@ -102,7 +102,7 @@ class appController():
                 page = reader.pages[0]
 
                 text = page.extract_text()
-            
+
             return render_template("new-project.html", text=text)
 
     def text_to_speech(self):
@@ -137,10 +137,22 @@ class appController():
     def pdf_recognition(self,pdf: PyPDF2.PdfFileReader):
         text = extract_text(pdf)
         print(text)
-    def image_recognition(self,image: Image):
-        myconfig = r"--psm 6 --oem 3"
-        text = pytesseract.image_to_string(PIL.Image.open(image), config=myconfig)
-        print(text)
+
+    def image_recognition(self):
+        if request.method == 'POST':
+            file = request.files['file']
+            filename = secure_filename(file.filename)
+
+            filepath = os.path.join(tempfile.gettempdir(), filename)
+
+            file.save(filepath)
+            myconfig = r"--psm 6 --oem 3"
+
+            with open(filepath, "rb") as f:
+
+                text = pytesseract.image_to_string(PIL.Image.open(f), config=myconfig)
+            print(text)
+            return render_template("new-project.html", text=text)
 
     def is_pdf(self, file):
         """Returns True if the file is a PDF file, False otherwise."""

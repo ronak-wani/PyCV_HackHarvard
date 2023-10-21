@@ -4,7 +4,13 @@
 
 <div class="top-nav">
     <div class="top-tools-group">
-        <button type="button" class="top-tools">File</button>
+        <!-- <button type="button" class="top-tools">File</button> -->
+        <select id="uploaders" class="uploaders" onchange="changeUploader()">
+            <option disabled selected value="">File</option>
+            <option value="pdf">PDF</option>
+            <option value="image">IMAGE</option>
+            <option value="write">WRITE</option>
+        </select>
         <button type="button" class="top-tools top-tools-all">Edit</button>
         <button type="button" class="top-tools top-tools-all">View</button>
         <button type="button" class="top-tools top-tools-all">Navigate</button>
@@ -59,8 +65,7 @@
 
 <div class="bottom-opt">
     <div class="bottom-tools-group">
-        <button type="button" class="bottom-tools">Run</button>
-        <button type="button" class="bottom-tools bottom-tools-all click-pp">Python Packages</button>
+        <button type="button" class="bottom-tools click-pp">Python Packages</button>
         <button type="button" class="bottom-tools bottom-tools-all click-es">Error Simplified</button>
         <button type="button" class="bottom-tools bottom-tools-all click-pc">Python Console</button>
         <button type="button" class="bottom-tools bottom-tools-all click-suggest">Suggestions</button>
@@ -70,9 +75,17 @@
             <option disabled selected value="">Choose Interpreter</option>
             <option value="python">Python</option>
         </select>
-        <form class="upload" action = "/uploader" method = "POST" enctype = "multipart/form-data">
-            <input class="" type = "file" name = "file">
-            <input class="" type = "submit">
+        <form style="display:none" id="show-uppdf" class="upload" action = "/uploader" method = "POST" enctype = "multipart/form-data">
+            <div style="display: flex; align-items: center;">
+                <input class="" type = "file" name = "file">
+                <input class="" type = "submit">
+            </div>
+        </form>
+        <form style="display:none" id="show-upimg" class="upload" action = "/uploader-img" method = "POST" enctype = "multipart/form-data">
+            <div style="display: flex; align-items: center;">
+                <input class="" type = "file" name = "file">
+                <input class="" type = "submit">
+            </div>
         </form>
     </div>
 </div>
