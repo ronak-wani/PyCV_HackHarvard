@@ -24,12 +24,9 @@ app.add_url_rule("/new-project", view_func=ac.showNewProject)
 app.add_url_rule("/user-code", methods=['GET', 'POST'], view_func=ac.userCode)
 app.add_url_rule("/text-to-speech", methods=['GET', 'POST'], view_func=ac.text_to_speech)
 app.add_url_rule("/speech-to-text", methods=['GET', 'POST'], view_func=ac.speech_recognition)
-<<<<<<< Updated upstream
 app.add_url_rule("/uploader", methods=['GET', 'POST'], view_func=ac.uploader)
 app.add_url_rule("/uploader-img", methods=['GET', 'POST'], view_func=ac.image_recognition)
-=======
 app.add_url_rule("/uploader", methods=['GET', 'POST'], view_func=ac.detect_file_type)
->>>>>>> Stashed changes
 
 # Settings for creating session
 app.config["SESSION_PERMANENT"] = False
