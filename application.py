@@ -26,7 +26,6 @@ app.add_url_rule("/text-to-speech", methods=['GET', 'POST'], view_func=ac.text_t
 app.add_url_rule("/speech-to-text", methods=['GET', 'POST'], view_func=ac.speech_recognition)
 app.add_url_rule("/uploader", methods=['GET', 'POST'], view_func=ac.uploader)
 app.add_url_rule("/uploader-img", methods=['GET', 'POST'], view_func=ac.image_recognition)
-app.add_url_rule("/uploader", methods=['GET', 'POST'], view_func=ac.detect_file_type)
 
 # Settings for creating session
 app.config["SESSION_PERMANENT"] = False

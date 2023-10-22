@@ -1,2 +1,1 @@
-a = [1, 2, 3]
-print(a[5])
+print("Hello World!")
