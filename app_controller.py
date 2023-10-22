@@ -150,14 +150,8 @@ class appController():
                 text = pytesseract.image_to_string(PIL.Image.open(f), config=myconfig)
             print(text)
             return render_template("new-project.html", text=text)
-    def image_recognition(self,image: Image):
-        myconfig = r"--psm 6 --oem 3"
-        text = pytesseract.image_to_string(PIL.Image.open(image), config=myconfig)
-        print(text)
 
     def performance_analysis(self, code):
-        print()
-    def image_extraction(self):
         print()
 
 
