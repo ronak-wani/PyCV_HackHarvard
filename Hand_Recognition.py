@@ -55,13 +55,6 @@ f = open('data.pickle', 'wb')
 pickle.dump({'data': data, 'labels': labels}, f)
 f.close()
 
-
-# In[ ]:
-
-
-
-
-
 data_dict = pickle.load(open('./data.pickle', 'rb'))
 
 data = np.asarray(data_dict['data'])
@@ -84,8 +77,6 @@ pickle.dump({'model': model}, f)
 f.close()
 
 
-# In[ ]:
-
 
 
 
@@ -98,7 +89,9 @@ mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 
-hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=0.3)
+hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=0.3)# In[ ]:
+
+
 
 labels_dict = {0: 'A', 1: 'B', 2: 'L'}
 while True:
@@ -157,9 +150,6 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
-
-
-# In[ ]:
 
 
 
