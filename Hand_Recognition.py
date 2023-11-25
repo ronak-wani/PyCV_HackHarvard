@@ -86,7 +86,7 @@ f.close()
 model_dict = pickle.load(open('./model.p', 'rb'))
 model = model_dict['model']
 
-cap = cv2.VideoCapture(2)
+cap = cv2.VideoCapture(0)
 
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
@@ -96,7 +96,7 @@ hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=0.3)# In
 
 
 
-labels_dict = {0: 'A', 1: 'B', 2: 'L'}
+labels_dict = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F'}
 while True:
 
     data_aux = []
