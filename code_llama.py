@@ -13,7 +13,7 @@ from ipywidgets import HBox, VBox
 import textwrap, json
 import ipywidgets as widgets
 import re, time
-from google.colab import files
+#from google.colab import files
 from pdfminer.high_level import extract_text
 import io
 
