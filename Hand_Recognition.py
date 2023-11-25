@@ -5,7 +5,7 @@ import mediapipe as mp
 import cv2
 import matplotlib.pyplot as plt
 import pickle
-
+import joblib
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
@@ -65,6 +65,9 @@ x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size=0.2,
 model = RandomForestClassifier()
 
 model.fit(x_train, y_train)
+
+#Saving the trained model
+joblib.dump(model, 'hand_recognition_model_complete.joblib')
 
 y_predict = model.predict(x_test)
 
